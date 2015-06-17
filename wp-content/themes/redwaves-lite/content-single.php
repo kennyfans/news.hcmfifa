@@ -17,6 +17,5 @@
 			'after'  => '</div>',
 		) ); ?>
 		<?php redwaves_next_prev_post(); ?>
-		<?php redwaves_author_box(); ?>             	
 	</div><!-- .entry-content -->
 </article><!-- #post-## -->

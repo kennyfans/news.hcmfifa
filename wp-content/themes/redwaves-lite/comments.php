@@ -13,7 +13,7 @@
 	* the visitor has not yet entered the password we will
 	* return early without loading the comments.
 	*/
-	
+	/*
 	if ( post_password_required() ) { ?>
 	<p class="nocomments"><?php _e('This post is password protected. Enter the password to view comments.','redwaves-lite'); ?></p>
 	<?php
@@ -65,4 +65,5 @@
 			); 
 		comment_form($comments_args); ?>
 </div>
-<?php endif; ?>
+<?php endif; ?> 
+*/
