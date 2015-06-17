@@ -569,5 +569,22 @@
 	/*-----------------------------------------------------------------------------------*/
 	/*  That's All, Bye!
 	/*-----------------------------------------------------------------------------------*/
+
+	function ilc_mce_buttons($buttons){
+	  array_push($buttons,
+	     "backcolor",
+	     "anchor",
+	     "hr",
+	     "sub",
+	     "sup",
+	     "fontselect",
+	     "fontsizeselect",
+	     "styleselect",
+	     "cleanup"
+	);
+	  return $buttons;
+	}
+	add_filter("mce_buttons", "ilc_mce_buttons");
+	
 		
 ?>
