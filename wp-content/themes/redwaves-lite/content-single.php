@@ -17,5 +17,6 @@
 			'after'  => '</div>',
 		) ); ?>
 		<?php redwaves_next_prev_post(); ?>
+		<div class="fb-comments" data-href="<?php the_permalink(); ?>" data-numposts="20" width="100%" data-colorscheme="light"></div>
 	</div><!-- .entry-content -->
 </article><!-- #post-## -->
