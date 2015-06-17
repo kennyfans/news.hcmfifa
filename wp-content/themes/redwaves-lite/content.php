@@ -64,9 +64,7 @@
 							$archives_post_meta = get_theme_mod( 'archives_post_meta', '1' );	
 							if ( $archives_post_meta && $archives_post_meta === '1' ) { 
 							redwaves_entry_category(); 
-							redwaves_entry_author();
 							redwaves_posted();
-							redwaves_entry_comments();	   		   
 						}?>              
 				</div><!-- .entry-meta -->
 			</header><!-- .entry-header -->
