@@ -78,7 +78,7 @@ msgstr ""
 
 #: content-none.php:13
 msgid "Nothing Found"
-msgstr ""
+msgstr "Chưa có nội dung"
 
 #: content-none.php:19
 #, php-format
