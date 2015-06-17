@@ -146,15 +146,15 @@ body {
 	padding: 1% 0;
 }
 .header_area-wrap {
-	width: 66%;
-	text-align: right;
+	/*width: 66%;*/
+	text-align: left;
 }
 .logo-wrap, .header_area-wrap {
 	display: inline-block;
 	vertical-align: middle;
 }
 .logo-wrap {
-	width: 33.5%;
+	/*width: 33.5%;*/
 }
 .logo-wrap h1 {
 	font-size: 2em;
