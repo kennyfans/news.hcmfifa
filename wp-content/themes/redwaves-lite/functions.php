@@ -540,11 +540,11 @@
 		function redwaves_copyrights() { ?>
 		<div id="copyright-note">
 			<div class="site-info">
-				<?php $footer_left = get_theme_mod( 'footer_left', 'Proudly powered by <a href="http://wordpress.org/" rel="generator">WordPress</a>' );
+				<?php $footer_left = get_theme_mod( 'footer_left', 'Câu Lạc Bộ FifaOnline3 Hồ Chí Minh' );
 				echo $footer_left; ?>
 			</div><!-- .site-info -->
 			<div class="right">
-				RedWaves theme by <a href="http://themient.com">Themient</a>
+				
 			</div>
 		</div>
 		<?php }
