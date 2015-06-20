@@ -34,10 +34,10 @@
 						<div class="logo-wrap">
 							<?php redwaves_logo(); ?>
 						</div><!-- .logo-wrap -->
-						<div class="header_area-wrap" style="font-family: Times New Roman;text-transform: uppercase;margin-left: 12px;">
+						<!-- <div class="header_area-wrap" style="font-family: Times New Roman;text-transform: uppercase;margin-left: 12px;">
 							<div style="font-size: 48px;">CLB Fifa Online 3 Hồ Chí Minh</div>
 							<div style="text-align: center;font-size: 48px;">Niềm Đam Mê Bất Tận</div>
-						</div>
+						</div> -->
 						<!-- .header_area-wrap -->
 					</div><!-- .header-inner -->
 				</div><!-- .container -->
