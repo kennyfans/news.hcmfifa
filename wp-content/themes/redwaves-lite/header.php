@@ -34,10 +34,13 @@
 						<div class="logo-wrap">
 							<?php redwaves_logo(); ?>
 						</div><!-- .logo-wrap -->
-						<!-- <div class="header_area-wrap" style="font-family: Times New Roman;text-transform: uppercase;margin-left: 12px;">
-							<div style="font-size: 48px;">CLB Fifa Online 3 Hồ Chí Minh</div>
-							<div style="text-align: center;font-size: 48px;">Niềm Đam Mê Bất Tận</div>
-						</div> -->
+						<div class="header_area-wrap" style="font-family: Times New Roman;text-transform: uppercase;margin-left: 12px;">
+							<div>
+								<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/cybercore.png" alt="Đối tác - Cybercore">
+								<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/ved.png" alt="Đối tác - Vietnam Esports evelopment" style="margin-left: 12px;">
+								<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/Logo-Apshop.jpg" alt="Đối tác - Apshop" style="margin-left: 12px;">
+							</div>
+						</div>
 						<!-- .header_area-wrap -->
 					</div><!-- .header-inner -->
 				</div><!-- .container -->
