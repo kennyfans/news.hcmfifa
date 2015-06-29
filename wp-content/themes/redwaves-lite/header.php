@@ -36,13 +36,13 @@
 						</div><!-- .logo-wrap -->
 						<div class="header_area-wrap" style="font-family: Times New Roman;text-transform: uppercase;margin-left: 12px;">
 							<div>
-								<a href="http://vietnamesports.vn/">
+								<a href="http://vietnamesports.vn/" target="_blank">
 									<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/VN-Esport-Ad.jpg" alt="Đối tác - Cybercore">
 								</a>
-								<a href="http://www.cybercore.vn/">
+								<a href="http://www.cybercore.vn/" target="_blank">
 									<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/Cyber-Ad.jpg" alt="Đối tác - Vietnam Esports evelopment" style="margin-left: 12px;">
 								</a>
-								<a href="http://apshop.vn/">
+								<a href="http://apshop.vn/" target="_blank">
 									<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/APshop-Ad.jpg" alt="Đối tác - Apshop" style="margin-left: 12px;">
 								</a>
 							</div>
