@@ -36,9 +36,15 @@
 						</div><!-- .logo-wrap -->
 						<div class="header_area-wrap" style="font-family: Times New Roman;text-transform: uppercase;margin-left: 12px;">
 							<div>
-								<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/cybercore.png" alt="Đối tác - Cybercore">
-								<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/ved.png" alt="Đối tác - Vietnam Esports evelopment" style="margin-left: 12px;">
-								<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/Logo-Apshop.jpg" alt="Đối tác - Apshop" style="margin-left: 12px;">
+								<a href="http://vietnamesports.vn/">
+									<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/VN-Esport-Ad.jpg" alt="Đối tác - Cybercore">
+								</a>
+								<a href="http://www.cybercore.vn/">
+									<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/Cyber-Ad.jpg" alt="Đối tác - Vietnam Esports evelopment" style="margin-left: 12px;">
+								</a>
+								<a href="http://apshop.vn/">
+									<img src="http://news.hcmfo3club.net/wp-content/uploads/2015/06/APshop-Ad.jpg" alt="Đối tác - Apshop" style="margin-left: 12px;">
+								</a>
 							</div>
 						</div>
 						<!-- .header_area-wrap -->
