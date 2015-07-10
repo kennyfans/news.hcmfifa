@@ -995,7 +995,7 @@ a:link, a:visited, a:active { text-decoration: none }
 }
 .main-container .widget-title {
 	background: #EEE;
-	padding-left: 5px;
+	text-align: center;
 }
 .widget li {
 	list-style-type: square;
