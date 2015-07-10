@@ -176,7 +176,6 @@ body {
 .main-container .widget-area {
 	float: right;
 	width: 40%;
-	max-width: 320px;
 	padding: 6px 1% 1% 1%;
 	margin-bottom: 20px;
 }
