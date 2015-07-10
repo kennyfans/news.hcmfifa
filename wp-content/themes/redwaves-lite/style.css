@@ -167,7 +167,7 @@ body {
   height: initial !important;
 }
 .content-area {
-	width: 71%;
+	width: 60%;
 	float: left;
 	padding: 0 1% 2% 1%;
 	margin-bottom: 20px;
@@ -175,7 +175,7 @@ body {
 .page-template-full-width .content-area { width: 100% !important;} 
 .main-container .widget-area {
 	float: right;
-	width: 29%;
+	width: 40%;
 	max-width: 320px;
 	padding: 6px 1% 1% 1%;
 	margin-bottom: 20px;
