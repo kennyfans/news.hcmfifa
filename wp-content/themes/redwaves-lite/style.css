@@ -1011,6 +1011,10 @@ a:link, a:visited, a:active { text-decoration: none }
 	padding: 0;
 }
 
+.widget_redwaves_fblikebox_widget{
+	text-align: center;
+}
+
 /*--------------------------------------------------------------
 	9.1 Search widget
 --------------------------------------------------------------*/
