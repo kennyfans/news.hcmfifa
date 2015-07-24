@@ -14,20 +14,25 @@
  * @package WordPress
  */
 
+
+define('WP_SITEURL', 'http://news.hcmfo3club.app/');
+define('WP_HOME', 'http://news.hcmfo3club.app/');
+
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('WP_CACHE', true); //Added by WP-Cache Manager
-define( 'WPCACHEHOME', '/home/forge/news.hcmfo3club.net/wp-content/plugins/wp-super-cache/' ); //Added by WP-Cache Manager
-define('DB_NAME', 'news_fifahcm');
+define( 'WPCACHEHOME', '/home/vagrant/newshcmfifa/wp-content/plugins/wp-super-cache/' ); //Added by WP-Cache Manager
+
+define('DB_NAME', 'newshcmfifa');
 
 /** MySQL database username */
-define('DB_USER', 'forge');
+define('DB_USER', 'homestead');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'itS7An771StSNkWVTebv');
+define('DB_PASSWORD', 'secret');
 
 /** MySQL hostname */
-define('DB_HOST', '128.199.143.72');
+define('DB_HOST', 'localhost');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
