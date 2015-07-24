@@ -16,16 +16,18 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'fifahcm');
+define('WP_CACHE', true); //Added by WP-Cache Manager
+define( 'WPCACHEHOME', '/home/forge/news.hcmfo3club.net/wp-content/plugins/wp-super-cache/' ); //Added by WP-Cache Manager
+define('DB_NAME', 'news_fifahcm');
 
 /** MySQL database username */
-define('DB_USER', 'root');
+define('DB_USER', 'forge');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', 'itS7An771StSNkWVTebv');
 
 /** MySQL hostname */
-define('DB_HOST', 'localhost');
+define('DB_HOST', '128.199.143.72');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
