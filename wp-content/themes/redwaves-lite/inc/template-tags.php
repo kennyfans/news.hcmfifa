@@ -14,26 +14,23 @@
 //Prints HTML with meta information for the current post-date/time.
 if ( ! function_exists( 'redwaves_posted' ) ) {
     function redwaves_posted() {
-			$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
-			if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-				$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
-			}
-
-			$time_string = sprintf( $time_string,
-				esc_attr( get_the_date( 'c' ) ),
-				esc_html( get_the_date() ),
-				esc_attr( get_the_modified_date( 'c' ) ),
-				esc_html( get_the_modified_date() )
-			);
-
-			$posted = sprintf(
-				_x( '%s', 'post date', 'redwaves-lite' ),
-				$time_string 
-			);
-			
-			echo '<span class="posted"><i class="space fa fa-calendar"></i>' . $posted . '</span>';
+		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
+		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
+		}
+		$time_string = sprintf( $time_string,
+			esc_attr( get_the_date( 'c' ) ),
+			esc_html( get_the_date() ),
+			esc_attr( get_the_modified_date( 'c' ) ),
+			esc_html( get_the_modified_date() )
+		);
+		$posted = sprintf(
+			_x( '%s', 'post date', 'redwaves-lite' ),
+			$time_string 
+		);
+		echo '<span class="posted"><i class="fa fa-clock-o"></i>' . $posted . '</span>';
 	}
-	}
+}
 
 // Prints HTML with meta information for Author.
 if ( ! function_exists( 'redwaves_entry_author' ) ) :
@@ -49,17 +46,19 @@ function redwaves_entry_author() {
 endif;
 
 // Prints HTML with meta information for Category.
-if ( ! function_exists( 'redwaves_entry_category' ) ) :
-function redwaves_entry_category() {
-    if ( 'post' == get_post_type() ) {
+if ( ! function_exists( 'redwaves_entry_category' ) ) {
+	function redwaves_entry_category() { ?>
+		<span class="thecategory">
+			<?php     if ( 'post' == get_post_type() ) {
 		/* translators: used between list items, there is a space after the comma */
 		$categories_list = get_the_category_list( __( '', 'redwaves-lite' ) );
 		if ( $categories_list && redwaves_categorized_blog() ) {
 			printf( '<div class="thecategory">' . __( '%1$s', 'redwaves-lite' ) . '</div>', $categories_list );
 		}
-    }
+    } ?>
+		</span>
+	<?php }
 }
-endif;
 
 // Prints HTML with meta information for Tags.
 if ( ! function_exists( 'redwaves_entry_tags' ) ) :
@@ -77,27 +76,42 @@ endif;
 // Prints HTML with meta information for Comments number.
 if ( ! function_exists( 'redwaves_entry_comments' ) ) :
 function redwaves_entry_comments() {
-    if ( 'post' == get_post_type() ) {
-              $num_comments = get_comments_number(); // get_comments_number returns only a numeric value
-                  if ( comments_open() ) {
-                       if ( $num_comments == 0 ) {
-		       $comments = __('No Comments', 'redwaves-lite' );
-	               } elseif ( $num_comments > 1 ) {
-		       $comments = $num_comments . __(' Comments', 'redwaves-lite' );
-	               } else {
-           	       $comments = __('1 Comment', 'redwaves-lite' );
-	               }
-	               $write_comments = $comments;
-                       } else {
-	               $write_comments =  __('Comments Off!', 'redwaves-lite' );
-                  }
-    
-		if ( $write_comments ) {
-			printf( '<span class="comments"><i class="fa fa-comments"></i>' . __( '%1$s', 'redwaves-lite' ) . '</span>', $write_comments );
+	if ( 'post' == get_post_type() ) {
+		$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
+		if ( comments_open() ) {
+			$write_comments =  $num_comments;
+		} else {
+			$write_comments = '0';
 		}
-    }
+		printf( '<span class="comments"><i class="fa fa-comments"></i>' . __( '%1$s', 'redwaves-lite' ) . '</span>', $write_comments );
+	}
 }
 endif;
+
+// Counts & Prints the number of post views.
+function redwaves_post_views( $postID ){
+    $count_key = 'post_views_count';
+    $count = get_post_meta( $postID, $count_key, true );
+    if( $count=='' ){
+        delete_post_meta( $postID, $count_key );
+         add_post_meta( $postID, $count_key, '0' );
+        echo '<span class="views"><i class="fa fa-eye"></i> 0</span>';
+    }
+    echo '<span class="views"><i class="fa fa-eye"></i>'.$count.'</span>';
+}
+
+function redwaves_set_post_views($postID) {
+	$count_key = 'post_views_count';
+	$count = get_post_meta($postID, $count_key, true);
+	if($count==''){
+		$count = 0;
+		delete_post_meta($postID, $count_key);
+		add_post_meta($postID, $count_key, '0');
+	}else{
+		$count++;
+		update_post_meta($postID, $count_key, $count);
+	}
+}
 
 if ( ! function_exists( 'the_archive_title' ) ) :
 /**

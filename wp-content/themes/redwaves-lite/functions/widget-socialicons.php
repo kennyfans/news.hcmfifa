@@ -2,8 +2,8 @@
 
 /*-----------------------------------------------------------------------------------
 
-	Plugin Name: Social Icons
-	Description: This widget shows social icons in the sidebar or footer.
+	Plugin Name: RedWaves Social Icons
+	Description: This widget shows social icons in the sidebar.
 	Version: 1.0
 
 -----------------------------------------------------------------------------------*/
@@ -135,7 +135,7 @@ class Social_Profile_Icons_Widget extends WP_Widget {
 		);
 
 		$widget_ops = array(
-			'classname'	 => 'social-icons',
+			'classname'	 => 'redwaves_social_icons',
 			'description' => __( 'Show social profile icons.', 'redwaves-lite' ),
 		);
 		$control_ops = array(
@@ -148,12 +148,6 @@ class Social_Profile_Icons_Widget extends WP_Widget {
 
 	}
 
-	/**
-	 * Widget Form.
-	 *
-	 * Outputs the widget form that allows users to control the output of the widget.
-	 *
-	 */
 	function form( $instance ) {
 
 		/** Merge with defaults */
@@ -176,12 +170,6 @@ class Social_Profile_Icons_Widget extends WP_Widget {
 
 	}
 
-	/**
-	 * Form validation and sanitization.
-	 *
-	 * Runs when you save the widget form. Allows you to validate or sanitize widget options before they are saved.
-	 *
-	 */
 	function update( $newinstance, $oldinstance ) {
 
 		foreach ( $newinstance as $key => $value ) {
@@ -196,12 +184,6 @@ class Social_Profile_Icons_Widget extends WP_Widget {
 		return $newinstance;
 	}
 
-	/**
-	 * Widget Output.
-	 *
-	 * Outputs the actual widget on the front-end based on the widget options the user selected.
-	 *
-	 */
 	function widget( $args, $instance ) {
 
 		extract( $args );
@@ -223,7 +205,7 @@ class Social_Profile_Icons_Widget extends WP_Widget {
 			}
 
 			if ( $output )
-				printf( '<div class="social-icons"><ul class="%s">%s</ul></div>', '',$output );
+				printf( '<div class="widget-container social-icons"><ul class="%s">%s</ul></div>', '',$output );
 
 		echo $after_widget;
 	}

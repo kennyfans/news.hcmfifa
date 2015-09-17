@@ -59,7 +59,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting( 
 			'sticky_menu' , array(
 				'default'     => '',
-				'sanitize_callback' => 'sanitize_checkbox',
+				'sanitize_callback' => 'redwaves_sanitize_checkbox',
 				)
 		);
 		
@@ -94,7 +94,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting( 
 			'footer_left', array(
 				'default' => 'Proudly powered by <a href="http://wordpress.org/" rel="generator">WordPress</a>',
-				'sanitize_callback' => 'sanitize_text',
+				'sanitize_callback' => 'redwaves_sanitize_text',
 			)
 		);
 		
@@ -195,7 +195,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 			'display',
 			array(
 				'default' => 'excerpt_smallfeatured',
-				'sanitize_callback' => 'sanitize_display',
+				'sanitize_callback' => 'redwaves_sanitize_display',
 			)
 		);
 
@@ -217,7 +217,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting( 
 			'archives_post_meta' , array(
 				'default'     => '1',
-				'sanitize_callback' => 'sanitize_checkbox',
+				'sanitize_callback' => 'redwaves_sanitize_checkbox',
 				)
 		);
 		
@@ -249,7 +249,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting( 
 			'excerpt_length', array( 
 				'default' => '40',
-				'sanitize_callback' => 'sanitize_integer',
+				'sanitize_callback' => 'redwaves_sanitize_integer',
 			) 
 		);
 				
@@ -276,7 +276,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting( 
 			'post_meta' , array(
 				'default'     => '1',
-				'sanitize_callback' => 'sanitize_checkbox',
+				'sanitize_callback' => 'redwaves_sanitize_checkbox',
 				)
 		);
 		
@@ -294,7 +294,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting( 
 			'related_posts' , array(
 				'default'     => '1',
-				'sanitize_callback' => 'sanitize_checkbox',
+				'sanitize_callback' => 'redwaves_sanitize_checkbox',
 				)
 		);
 		
@@ -312,7 +312,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting( 
 			'related_posts_number', array( 
 				'default' => '4',
-				'sanitize_callback' => 'sanitize_integer',
+				'sanitize_callback' => 'redwaves_sanitize_integer',
 		) );
 				
 		$wp_customize->add_control( 
@@ -328,7 +328,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 			'related_posts_query',
 			array(
 				'default' => 'tags',
-				'sanitize_callback' => 'sanitize_related_posts_query',
+				'sanitize_callback' => 'redwaves_sanitize_related_posts_query',
 			)
 		);
 		
@@ -338,17 +338,36 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 				'label' => __( 'Related Posts Query', 'redwaves-lite' ),
 				'section' => 'article_settings',
 				'choices' => array(
-					'tags' => 'Tags',
-					'categories' => 'Categories',
+					'tags' => __( 'Tags', 'redwaves-lite' ),
+					'categories' => __( 'Categories', 'redwaves-lite' ),
 				),
 			)
 		);		
+
+		//Related Posts Excerpt Length
+		$wp_customize->add_setting( 
+			'related_posts_excerpt', array( 
+				'default' => '12',
+				'sanitize_callback' => 'redwaves_sanitize_integer',
+			) 
+		);
+				
+		$wp_customize->add_control(
+			new Customizer_Number_Control(
+				$wp_customize,
+				'related_posts_excerpt', array(
+					'label'    => __( 'Related Posts Excerpt Length', 'redwaves-lite' ),
+					'section'  => 'article_settings',
+					'settings' => 'related_posts_excerpt',
+				) 
+			)
+		);
 		
 		//Next/Prev Article
 		$wp_customize->add_setting( 
 			'next_prev_post' , array(
 				'default'     => '1',
-				'sanitize_callback' => 'sanitize_checkbox',
+				'sanitize_callback' => 'redwaves_sanitize_checkbox',
 				)
 		);
 		
@@ -366,7 +385,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting( 
 			'author_box' , array(
 				'default'     => '1',
-				'sanitize_callback' => 'sanitize_checkbox',
+				'sanitize_callback' => 'redwaves_sanitize_checkbox',
 				)
 		);
 		
@@ -393,7 +412,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 			'sidebar_settings',
 			array(
 				'default' => 'right_sidebar',
-				'sanitize_callback' => 'sanitize_sidebar_settings',
+				'sanitize_callback' => 'redwaves_sanitize_sidebar_settings',
 			)
 		);
 		
@@ -433,12 +452,31 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 			)
 		);
 
+		// Enable Shadows
+		$wp_customize->add_setting( 
+			'toggle_shadows' , array(
+				'default'     => '1',
+				'sanitize_callback' => 'redwaves_sanitize_checkbox',
+				)
+		);
+		
+		$wp_customize->add_control(
+			new Customizer_Switcher_Control(
+				$wp_customize,				
+				'toggle_shadows',
+				array(
+					'label' =>  __( 'Enable Shadows', 'redwaves-lite' ),
+					'section' => 'design_layout',
+				)
+			)
+		);
+		
 		// Background Settings
 		$wp_customize->add_setting(
 			'background_settings',
 			array(
 				'default' => 'color',
-				'sanitize_callback' => 'sanitize_background_settings',
+				'sanitize_callback' => 'redwaves_sanitize_background_settings',
 			)
 		);
 		
@@ -448,9 +486,9 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 				'label' => __( 'Background settings', 'redwaves-lite' ),
 				'section' => 'design_layout',
 				'choices' => array(
-					'color' => 'Color',
-					'pattern' => 'Pattern',					
-					'custom_image' => 'Custom image',
+					'color' => __( 'Color', 'redwaves-lite' ),
+					'pattern' => __( 'Pattern', 'redwaves-lite' ),					
+					'custom_image' => __( 'Custom image', 'redwaves-lite' ),
 				),
 			)
 		);		
@@ -459,7 +497,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting(
 			'bg_color',
 			array(
-				'default' => '#fff',
+				'default' => '#f7f7f7',
 				'sanitize_callback' => 'sanitize_hex_color',
 			)
 		);
@@ -480,7 +518,7 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 		$wp_customize->add_setting(
 			'background_pattern',
 			array(
-				'default' => '',
+				'default' => get_template_directory_uri() .'/images/patterns/21.gif',
 				'sanitize_callback' => 'esc_url_raw',
 			)
 		);
@@ -556,7 +594,73 @@ function redwaves_options_theme_customizer_register( $wp_customize ) {
 				)
 			)
 		);		
-			
+
+		//Background image repeat	
+		$wp_customize->add_setting( 
+			'background_image_repeat' , array(
+				'default'     => 'repeat',
+				'sanitize_callback' => 'redwaves_sanitize_background_image_repeat',
+				));
+
+		$wp_customize->add_control(
+			'background_image_repeat', array(
+				'type' => 'select',
+				'label' => __( 'Repeat', 'redwaves-lite' ),
+				'section' => 'design_layout',
+				'choices' => array(
+					'repeat' => __( 'Repeat', 'redwaves-lite' ),
+					'repeat-x' => __( 'Repeat-x', 'redwaves-lite' ),
+					'repeat-y' => __( 'Repeat-y', 'redwaves-lite' ),
+					'no-repeat' => __( 'No-repeat', 'redwaves-lite' ),					
+				),
+			)
+		);
+
+		//Background image attachment	
+		$wp_customize->add_setting( 
+			'background_image_attachment' , array(
+				'default'     => 'scroll',
+				'sanitize_callback' => 'redwaves_sanitize_background_image_attachment',
+				));
+
+		$wp_customize->add_control(
+			'background_image_attachment', array(
+				'type' => 'select',
+				'label' => __( 'Attachment', 'redwaves-lite' ),
+				'section' => 'design_layout',
+				'choices' => array(
+					'scroll' => __( 'Scroll', 'redwaves-lite' ),
+					'fixed' => __( 'Fixed', 'redwaves-lite' ),				
+				),
+			)
+		);
+
+		//Background image position	
+		$wp_customize->add_setting( 
+			'background_image_position' , array(
+				'default'     => 'left top',
+				'sanitize_callback' => 'redwaves_sanitize_background_image_position',
+				));
+
+		$wp_customize->add_control(
+			'background_image_position', array(
+				'type' => 'select',
+				'label' => __( 'Position', 'redwaves-lite' ),
+				'section' => 'design_layout',
+				'choices' => array(
+					'left top' => __( 'Left top', 'redwaves-lite' ),
+					'left center' => __( 'Left center', 'redwaves-lite' ),
+					'left bottom' => __( 'Left bottom', 'redwaves-lite' ),
+					'right top' => __( 'Right top', 'redwaves-lite' ),
+					'right center' => __( 'Right center', 'redwaves-lite' ),
+					'right bottom' => __( 'Right bottom', 'redwaves-lite' ),
+					'center top' => __( 'Center top', 'redwaves-lite' ),
+					'center center' => __( 'Center center', 'redwaves-lite' ),
+					'center bottom' => __( 'Center bottom', 'redwaves-lite' ),				
+				),
+			)
+		);
+
 		// Custom CSS
 		$wp_customize->add_setting( 
 			'custom_css', array(
@@ -585,12 +689,12 @@ add_action( 'customize_register', 'redwaves_options_theme_customizer_register' )
 /*-----------------------------------------------------------------------------------*/
 	
 // Sanitize text
-function sanitize_text( $input ) {
+function redwaves_sanitize_text( $input ) {
 	return strip_tags( $input,'<a>' );
 }	
 	
 // Sanitize checkbox
-function sanitize_checkbox( $input ) {
+function redwaves_sanitize_checkbox( $input ) {
 	if ( $input == 1 ) {
 		return 1;
 	} else {
@@ -599,12 +703,12 @@ function sanitize_checkbox( $input ) {
 }
 
 // Sanitize integer
-function sanitize_integer( $input ) {
+function redwaves_sanitize_integer( $input ) {
 	return absint( $input );
 }
 
 // Sanitize sidebar settings
-function sanitize_sidebar_settings( $input ) {
+function redwaves_sanitize_sidebar_settings( $input ) {
     $valid = array(
 		'right_sidebar' => 'Right Sidebar',
 		'left_sidebar' => 'Left Sidebar',
@@ -619,7 +723,7 @@ function sanitize_sidebar_settings( $input ) {
 }
 
 // Sanitize background settings
-function sanitize_background_settings( $input ) {
+function redwaves_sanitize_background_settings( $input ) {
     $valid = array(
 		'color' => 'Color',
 		'pattern' => 'Pattern',			
@@ -633,8 +737,59 @@ function sanitize_background_settings( $input ) {
     }
 }
 
+// Sanitize background image repeat
+function redwaves_sanitize_background_image_repeat( $input ) {
+    $valid = array(
+		'repeat' => __( 'Repeat', 'redwaves-lite' ),
+		'repeat-x' => __( 'Repeat-x', 'redwaves-lite' ),
+		'repeat-y' => __( 'Repeat-y', 'redwaves-lite' ),
+		'no-repeat' => __( 'No-repeat', 'redwaves-lite' ),
+    );
+ 
+    if ( array_key_exists( $input, $valid ) ) {
+        return $input;
+    } else {
+        return '';
+    }
+}
+
+// Sanitize background image attachment
+function redwaves_sanitize_background_image_attachment( $input ) {
+    $valid = array(
+		'scroll' => __( 'Scroll', 'redwaves-lite' ),
+		'fixed' => __( 'Fixed', 'redwaves-lite' ),
+    );
+ 
+    if ( array_key_exists( $input, $valid ) ) {
+        return $input;
+    } else {
+        return '';
+    }
+}
+
+// Sanitize background image position
+function redwaves_sanitize_background_image_position( $input ) {
+    $valid = array(
+		'left top' => __( 'Left top', 'redwaves-lite' ),
+		'left center' => __( 'Left center', 'redwaves-lite' ),
+		'left bottom' => __( 'Left bottom', 'redwaves-lite' ),
+		'right top' => __( 'Right top', 'redwaves-lite' ),
+		'right center' => __( 'Right center', 'redwaves-lite' ),
+		'right bottom' => __( 'Right bottom', 'redwaves-lite' ),
+		'center top' => __( 'Center top', 'redwaves-lite' ),
+		'center center' => __( 'Center center', 'redwaves-lite' ),
+		'center bottom' => __( 'Center bottom', 'redwaves-lite' ),
+    );
+ 
+    if ( array_key_exists( $input, $valid ) ) {
+        return $input;
+    } else {
+        return '';
+    }
+}
+
 // Sanitize display
-function sanitize_display( $input ) {
+function redwaves_sanitize_display( $input ) {
     $valid = array(
 		'excerpt_smallfeatured' => 'Excerpt + Small Featured image',
 		'excerpt_full_featured' => 'Excerpt + Full-width Featured image',
@@ -648,7 +803,7 @@ function sanitize_display( $input ) {
 }
 
 // Sanitize Related Posts Query
-function sanitize_related_posts_query( $input ) {
+function redwaves_sanitize_related_posts_query( $input ) {
     $valid = array(
 		'tags' => 'Tags',
 		'categories' => 'Categories',
@@ -661,153 +816,55 @@ function sanitize_related_posts_query( $input ) {
     }
 }
 
+/*-----------------------------------------------------------------------------------*/
+/*  Customizer Styles & Scripts
+/*-----------------------------------------------------------------------------------*/
+
 // Style settings output.
-function add_style_settings() {
+function redwaves_add_style_settings() {
 	$sidebar_settings = get_theme_mod( 'sidebar_settings' );
-	if ( $sidebar_settings && $sidebar_settings === 'left_sidebar' ) {
-		$layout_style = ' .content-area { float: right;} ';
+	if ( $sidebar_settings && $sidebar_settings == 'left_sidebar' ) {
+		$layout_style = ' .content-area { float: right; margin-right: 0; margin-left: 1%;} ';
 	}
-	elseif ( $sidebar_settings && $sidebar_settings === 'no_sidebar' ) {
+	elseif ( $sidebar_settings && $sidebar_settings == 'no_sidebar' ) {
 		$layout_style = ' .content-area { width: 100%;} ';
 	} else {  $layout_style = '';  }
 	$theme_color = get_theme_mod( 'theme_color', '#c60000' );
+	$toggle_shadows = get_theme_mod( 'toggle_shadows', '1' );
 	$custom_css = get_theme_mod( 'custom_css' );
 	$background_settings = get_theme_mod( 'background_settings', 'color' );
-	if ( $background_settings && $background_settings === 'color') {
-		$bg_color = get_theme_mod( 'bg_color', '#fff' );
+	if ( $background_settings && $background_settings == 'color') {
+		$bg_color = get_theme_mod( 'bg_color', '#f7f7f7' );
 		$background = ' body { background: ' . $bg_color . ';}';
 	} 
-	elseif ( $background_settings && $background_settings === 'pattern') {
-		$background_pattern = get_theme_mod( 'background_pattern' );
+	elseif ( $background_settings && $background_settings == 'pattern') {
+		$background_pattern = get_theme_mod( 'background_pattern', get_template_directory_uri() .'/images/patterns/21.gif' );
 		$background = ' body { background: url(' . $background_pattern . ') repeat left bottom;}';
 	} else { 
 		$background_image = get_theme_mod( 'background_image' );
+		$background_image_repeat = get_theme_mod( 'background_image_repeat' );
+		$background_image_attachment = get_theme_mod( 'background_image_attachment' );
+		$background_image_position = get_theme_mod( 'background_image_position' );
 		if ( $background_image ) {
-			$background = ' body { background: url(' . $background_image . ') repeat left bottom;}';
+			$background = ' body { background: url(' . $background_image . ') '. $background_image_repeat .' '. $background_image_attachment .' '. $background_image_position .';}';
 		}
 	}
 	?>
 	<style type="text/css">
-		<?php echo $layout_style ?> button, .pagination a, .nav-links a, .readmore, .thecategory a:hover, input[type='submit'], #commentform input#submit, .contactform #submit, .pagination a, #wp-calendar td a, #wp-calendar caption, #wp-calendar #prev a:before, #wp-calendar #next a:before, .tagcloud a, #wp-calendar thead th.today, #wp-calendar td a:hover, #wp-calendar #today { background: <?php echo $theme_color ?>; } .secondary-navigation, .secondary-navigation ul ul li, .secondary-navigation ul ul li:hover, .secondary-navigation ul ul ul li:hover, .secondary-navigation ul ul ul li, #mobile-menu-wrapper, a.sideviewtoggle { background: <?php echo $theme_color ?>; }  .thecategory ul li a:hover { background: <?php echo $theme_color ?>; !important} a, .breadcrumb a, .entry-content a {color: <?php echo $theme_color ?>;} .title a:hover, .post-data .post-title a:hover, .post-title a:hover, .post-info a:hover,.textwidget a, .reply a, .comm, .fn a, .comment-reply-link, .entry-content .singleleft a:hover, .breadcrumb a:hover, .widget-post-title a:hover { color: <?php echo $theme_color ?>; } .main-container .widget-title {   border-bottom: 2px solid <?php echo $theme_color ?>; } <?php echo $background ?> <?php if ( $custom_css ) { echo $custom_css; } ?>
+		<?php echo $layout_style ?> button, .pagination a, .nav-links a, .readmore, .thecategory a:hover, .pagination a, #wp-calendar td a, #wp-calendar caption, #wp-calendar #prev a:before, #wp-calendar #next a:before, .tagcloud a:hover, #wp-calendar thead th.today, #wp-calendar td a:hover, #wp-calendar #today { background: <?php echo $theme_color ?>; } .secondary-navigation, .secondary-navigation li:hover ul a, .secondary-navigation ul ul li, .secondary-navigation ul ul li:hover, .secondary-navigation ul ul ul li:hover, .secondary-navigation ul ul ul li, #mobile-menu-wrapper, a.sideviewtoggle { background: <?php echo $theme_color ?>; }  .thecategory ul li a:hover { background: <?php echo $theme_color ?>; !important} a, .breadcrumb a, .entry-content a {color: <?php echo $theme_color ?>;} .title a:hover, .post-data .post-title a:hover, .post-title a:hover, .post-info a:hover,.textwidget a, .reply a, .comm, .fn a, .comment-reply-link, .entry-content .singleleft a:hover, .breadcrumb a:hover, .widget-post-title a:hover { color: <?php echo $theme_color ?>; } .main-container .widget h3:after, .tagcloud a:hover { border-color: <?php echo $theme_color ?>; } <?php echo $background ?> <?php if ( $toggle_shadows ) { echo 'article, .sidebar-widget, .related-posts .horizontal-container, .author-box, .error404 .content-area { -webkit-box-shadow: 0px 1px 1px #c2c4c4; -moz-box-shadow: 0px 1px 1px #c2c4c4; box-shadow: 0px 1px 1px #c2c4c4; }'; } ?> <?php if ( $custom_css ) { echo $custom_css; } ?>
 	</style>
 	<?php
 }
-add_action( 'wp_head', 'add_style_settings' );
+add_action( 'wp_head', 'redwaves_add_style_settings' );
 
 //Loading Customizer Styles
-function customizer_inline_css() {
-?>
-	<style type="text/css">
-	#customize-control-favicon_image .current {
-		width: 50px;
-	}	
-	.ui-state-active img {
-		border: 2px solid #c60000;
-	}
-	#customize-control-sidebar_settings .ui-state-active img {
-		width: 71px;
-		height: 46px;
-	}
-	#input_background_pattern {
-		height: 220px;
-		overflow: auto;
-	}
-	#input_background_pattern img {
-		width: 70px;
-		height: 70px;
-	}	
-	#input_background_pattern .ui-state-active img {
-		width: 66px;
-		height: 66px;
-	}	
-	/* Switch Styles */	
-	input[type="checkbox"].ios-switch {
-		display: none !important;
-	}
-	input[type="checkbox"].ios-switch + div {
-		vertical-align: middle;
-		width: 40px;	height: 20px;
-		border: 1px solid rgba(0,0,0,.4);
-		border-radius: 999px;
-		background-color: rgba(0, 0, 0, 0.1);
-		-webkit-transition-duration: .4s;
-		-webkit-transition-property: background-color, box-shadow;
-		box-shadow: inset 0 0 0 0px rgba(0,0,0,0.4);
-		margin: 15px 1.2em 15px 2.5em;
-	}
-	input[type="checkbox"].ios-switch:checked + div {
-		width: 40px;
-		background-position: 0 0;
-		background-color: #3b89ec;
-		border: 1px solid #0e62cd;
-		box-shadow: inset 0 0 0 10px rgba(59,137,259,1);
-	}
-	input[type="checkbox"].tinyswitch.ios-switch + div {
-		width: 34px;	height: 18px;
-	}
-	input[type="checkbox"].bigswitch.ios-switch + div {
-		width: 50px;	height: 25px;
-	}
-	input[type="checkbox"].green.ios-switch:checked + div {
-		background-color: #00e359;
-		border: 1px solid rgba(0, 162, 63,1);
-		box-shadow: inset 0 0 0 10px rgba(0,227,89,1);
-	}
-	input[type="checkbox"].ios-switch + div > div {
-		float: left;
-		width: 18px; height: 18px;
-		border-radius: inherit;
-		background: #ffffff;
-		-webkit-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
-		-webkit-transition-duration: 0.4s;
-		-webkit-transition-property: transform, background-color, box-shadow;
-		-moz-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
-		-moz-transition-duration: 0.4s;
-		-moz-transition-property: transform, background-color;
-		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(0, 0, 0, 0.4);
-		pointer-events: none;
-		margin-top: 1px;
-		margin-left: 1px;
-	}
-	input[type="checkbox"].ios-switch:checked + div > div {
-		-webkit-transform: translate3d(20px, 0, 0);
-		-moz-transform: translate3d(20px, 0, 0);
-		background-color: #ffffff;
-		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
-	}
-	input[type="checkbox"].tinyswitch.ios-switch + div > div {
-		width: 16px; height: 16px;
-		margin-top: 1px;
-	}
-	input[type="checkbox"].tinyswitch.ios-switch:checked + div > div {
-		-webkit-transform: translate3d(16px, 0, 0);
-		-moz-transform: translate3d(16px, 0, 0);
-		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
-	}
-	input[type="checkbox"].bigswitch.ios-switch + div > div {
-		width: 23px; height: 23px;
-		margin-top: 1px;
-	}
-	input[type="checkbox"].bigswitch.ios-switch:checked + div > div {
-		-webkit-transform: translate3d(25px, 0, 0);
-		-moz-transform: translate3d(16px, 0, 0);
-		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
-	}
-	input[type="checkbox"].green.ios-switch:checked + div > div {
-		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 162, 63,1);
-	}
-	.ios-switch-div {
-		margin: 1px !important;
-		margin-bottom: 10px !important;
-	}
-	</style>
-	<?php
+function redwaves_customizer_css() {
+	wp_enqueue_style( 'customizer_css', get_template_directory_uri() . '/css/customizer.css', array() );
 }
-add_action( 'admin_enqueue_scripts', 'customizer_inline_css' );
+add_action( 'admin_enqueue_scripts', 'redwaves_customizer_css' );
 
 // Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
-function options_theme_customizer_preview_js() {
+function redwaves_options_theme_customizer_preview_js() {
 	wp_enqueue_script( 'options_theme_customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20130508', true );
 }
-add_action( 'customize_preview_init', 'options_theme_customizer_preview_js' );
-	
+add_action( 'customize_preview_init', 'redwaves_options_theme_customizer_preview_js' );

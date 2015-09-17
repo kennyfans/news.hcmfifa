@@ -1,126 +1,24 @@
 <?php
 /*-----------------------------------------------------------------------------------
 
-	Plugin Name: RedWave Facebook Like Box
+	Plugin Name: RedWaves Facebook Like Box
 	Description: A widget that displays your Facebook Like Box for Facebook Page.
-	Version: 1.0
+	Version: 2.0
 
 -----------------------------------------------------------------------------------*/
 
 class redwaves_fblikebox_widget extends WP_Widget {
- 
-    /**
-     * Register the widget with WordPress.
-     */
+
     public function __construct() {
         parent::__construct(
             'redwaves_fblikebox_widget',
             __('RedWaves: Facebook Like Box', 'redwaves-lite' ),
             array( 'description' => __( 'Displays Facebook Like Box.', 'redwaves-lite' ), )
         );
-    }
- 
-    /**
-     * Front-end display of widget.
-     * @see WP_Widget::widget()
-     *
-     * @param array $args     Widget arguments.
-     * @param array $instance Saved values from database.
-     *
-     */
-	public function widget( $args, $instance ) {
-	    /* Our variables from the widget settings. */
-	    $title 		= apply_filters('widget_title', $instance['title'] );
-	    $app_id 		= $instance['app_id'];
-	    $href 		= $instance['href'];
-	    $width 		= $instance['width'];
-	    $height 		= $instance['height'];
-	    $color 		= $instance['color'];
-	    $showfaces 		= ($instance['showfaces'] == "1" ? "true" : "false");
-	    $header 		= ($instance['header'] == "1" ? "true" : "false");
-	    $stream 		= ($instance['stream'] == "1" ? "true" : "false");
-	    $showborder 	= ($instance['showborder'] == "1" ? "true" : "false");
-	 
-	    add_action('wp_footer', array(&$this,'fb_like_box_js'));
-	 
-	    /* Display the widget title if one was input (before and after defined by themes). */
-	    echo $args['before_widget'];
-	 
-	    if ( ! empty( $title ) ) {
-	        echo $args['before_title'] . $title . $args['after_title'];
-	    }
-	 
-	    /* Like Box */
-	    ?>
-	        <div class="fb-like-box"
-				data-href="<?php echo $href; ?>"
-				data-width="<?php echo $width; ?>"
-				data-height="<?php echo $height; ?>"
-				data-color="<?php echo $color; ?>"
-				data-show-faces="<?php echo $showfaces; ?>"
-				data-header="<?php echo $header; ?>"
-				data-stream="<?php echo $stream; ?>"
-				data-show-border="<?php echo $showborder; ?>">
-			</div>
-	        </aside>
-	    <?php
+    }	
+	public function form( $instance ) {
 
-	    echo $args['after_widget'];
-	}
-	/**
-	 * Add Facebook javascripts
-	 */
-	public function fb_like_box_js() {
-		
-		echo '<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-			  var js, fjs = d.getElementsByTagName(s)[0];
-			  if (d.getElementById(id)) return;
-			  js = d.createElement(s); js.id = id;
-			  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId='.$app_id.'&version=v2.0";
-			  fjs.parentNode.insertBefore(js, fjs);
-			}(document, \'script\', \'facebook-jssdk\'));</script>';
-	}
- 
-    /**
-     * Sanitize widget form values as they are saved.
-     *
-     * @see WP_Widget::update()
-     *
-     * @param array $new_instance Values just sent to be saved.
-     * @param array $old_instance Previously saved values from database.
-     *
-     * @return array Updated safe values to be saved.
-     */
-	function update( $new_instance, $old_instance ) {
-	    $instance = $old_instance;
-	 
-	    /* Strip tags for title and name to remove HTML (important for text inputs). */
-	    $instance['title'] 		= strip_tags( $new_instance['title'] );
-	    $instance['app_id'] 	= strip_tags( $new_instance['app_id'] );
-	    $instance['href'] 		= strip_tags( $new_instance['href'] );
-	    $instance['width'] 		= strip_tags( $new_instance['width'] );
-	    $instance['height'] 	= strip_tags( $new_instance['height'] );
-	    $instance['color']		= strip_tags( $new_instance['color'] );	 
-	    $instance['showfaces'] 	= (bool)$new_instance['showfaces'];
-	    $instance['stream'] 	= (bool)$new_instance['stream'];
-	    $instance['header'] 	= (bool)$new_instance['header'];
-	    $instance['showborder']	= (bool)$new_instance['showborder'];
-	 
-	    return $instance;
-	}
- 
-    /**
-     * Back-end widget form.
-     *
-     * @see WP_Widget::form()
-     *
-     * @param array $instance Previously saved values from database.
-     */
-	function form( $instance ) {
-	 
-	/* Set up some default widget settings. */
-	$title 		= ! empty( $instance['title'] ) ? $instance['title'] : __( 'Find us on Facebook!', 'redwaves-lite' );
+		$title 		= ! empty( $instance['title'] ) ? $instance['title'] : __( 'Find us on Facebook!', 'redwaves-lite' );
      	$app_id 	= ! empty( $instance['app_id'] ) ? $instance['app_id'] : '';
      	$href 		= ! empty( $instance['href'] ) ? $instance['href'] : '';
      	$width 		= ! empty( $instance['width'] ) ? $instance['width'] : '297';
@@ -182,6 +80,69 @@ class redwaves_fblikebox_widget extends WP_Widget {
 	    </p>
 	    <?php
 	}
- 
+
+	public function update( $new_instance, $old_instance ) {
+	    $instance = $old_instance;
+	 
+	    /* Strip tags for title and name to remove HTML (important for text inputs). */
+	    $instance['title'] 		= strip_tags( $new_instance['title'] );
+	    $instance['app_id'] 	= strip_tags( $new_instance['app_id'] );
+	    $instance['href'] 		= strip_tags( $new_instance['href'] );
+	    $instance['width'] 		= strip_tags( $new_instance['width'] );
+	    $instance['height'] 	= strip_tags( $new_instance['height'] );
+	    $instance['color']		= strip_tags( $new_instance['color'] );	 
+	    $instance['showfaces'] 	= (bool)$new_instance['showfaces'];
+	    $instance['stream'] 	= (bool)$new_instance['stream'];
+	    $instance['header'] 	= (bool)$new_instance['header'];
+	    $instance['showborder']	= (bool)$new_instance['showborder'];
+
+	    return $instance;
+	}
+
+	public function widget( $args, $instance ) {
+		
+		extract($args);
+	    /* Our variables from the widget settings. */
+	    $title 			= apply_filters('widget_title', $instance['title'] );	
+	    $app_id 		= $instance['app_id'];
+	    $href 			= $instance['href'];
+	    $width 			= $instance['width'];
+	    $height 		= $instance['height'];
+	    $color 			= $instance['color'];
+	    $showfaces 		= ($instance['showfaces'] == "1" ? "true" : "false");
+	    $header 		= ($instance['header'] == "1" ? "true" : "false");
+	    $stream 		= ($instance['stream'] == "1" ? "true" : "false");
+	    $showborder 	= ($instance['showborder'] == "1" ? "true" : "false");	 
+
+	    add_action('wp_footer', array(&$this,'fb_like_box_js'));
+	 
+	    /* Display the widget title if one was input (before and after defined by themes). */
+	    echo $args['before_widget'];
+	 
+	    if ( ! empty( $title ) ) {
+	        echo $args['before_title'] . $title . $args['after_title'];
+	    }
+	 
+	    /* Like Box */
+		if($href): ?>
+			<div class="fb-like-box widget-container" data-href="<?php echo $href; ?>" data-height="<?php echo $height; ?>" data-width="<?php echo $width; ?>" data-colorscheme="<?php echo $color; ?>" data-show-faces="<?php echo $showfaces; ?>" data-header="<?php echo $header; ?>" data-stream="<?php echo $stream; ?>" allowTransparency="true" data-show-border="<?php echo $showborder; ?>"></div>
+		<?php endif;		
+
+	    echo $args['after_widget'];
+	}
+
+	/**
+	 * Add Facebook javascripts
+	 */
+	public function fb_like_box_js() {
+		global $app_id;
+		echo '<script>(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId='.$app_id.'&version=v2.0";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, \'script\', \'facebook-jssdk\'));</script>';
+	}
 }
 add_action( 'widgets_init', create_function( '', 'register_widget("redwaves_fblikebox_widget");' ) );

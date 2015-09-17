@@ -22,17 +22,17 @@ get_header(); ?>
 				* If you want to override this in a child theme, then include a file
 				* called content-___.php (where ___ is the Post Format name) and that will be used instead.
 			*/
-			get_template_part( 'content', get_post_format() );
+			get_template_part( 'template-parts/content', get_post_format() );
 		?>
 		<?php endwhile; ?>
 		<?php else : ?>
-		<?php get_template_part( 'content', 'none' ); ?>
+		<?php get_template_part( 'template-parts/content', 'none' ); ?>
 		<?php endif; ?>
 		
 		<?php // if WP version 4.1.0 or above use the_posts_pagination() built in function.
 		if (4.1 <= floatval(get_bloginfo('version'))):?>                    
 		<?php the_posts_pagination( array(
-			'mid_size' => 2,
+			'mid_size' => 1,
 			'prev_text' => __( '&#8249; Previous', 'redwaves-lite' ),
 			'next_text' => __( 'Next &#8250;', 'redwaves-lite' ),
 		) ); ?>
@@ -41,10 +41,5 @@ get_header(); ?>
 		<?php endif; ?>
 	</main><!-- #main -->
 </div><!-- #primary -->
-<?php //show sidebar only if enabled.
-	$sidebar_settings = get_theme_mod( 'sidebar_settings', 'right_sidebar' );
-	if ($sidebar_settings === 'right_sidebar' || $sidebar_settings === 'left_sidebar') {
-		get_sidebar();
-	} 
-?>
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>	

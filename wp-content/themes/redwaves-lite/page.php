@@ -17,7 +17,7 @@ get_header(); ?>
 		
 		<?php while ( have_posts() ) : the_post(); ?>
 		
-		<?php get_template_part( 'content', 'page' ); ?>
+		<?php get_template_part( 'template-parts/content', 'page' ); ?>
 		
 		<?php
 			// If comments are open or we have at least one comment, load up the comment template
@@ -30,12 +30,6 @@ get_header(); ?>
 		
 	</main><!-- #main -->
 </div><!-- #primary -->
-
-<?php //show sidebar only if enabled.
-	$sidebar_settings = get_theme_mod( 'sidebar_settings', 'right_sidebar' );
-	if ($sidebar_settings === 'right_sidebar' || $sidebar_settings === 'left_sidebar') {
-		get_sidebar();
-	} 
-?>
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>
 		

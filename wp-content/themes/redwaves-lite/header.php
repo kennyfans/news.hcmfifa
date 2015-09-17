@@ -21,11 +21,15 @@
 			<a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'redwaves-lite' ); ?></a>
 			<header id="masthead" class="site-header" role="banner">
 				<div id="mobile-menu-wrapper">
-					<a href="javascript:void(0); " id="sidemenu_hide" class="sideviewtoggle">Menu</a>
+					<a href="javascript:void(0); " id="sidemenu_hide" class="sideviewtoggle"><?php _e( 'Menu', 'redwaves-lite' );?></a>
 					<?php redwaves_small_search_bar() ?>
 					<nav id="navigation" class="clearfix">
 						<div id="mobile-menu" class="mobile-menu">
-							<?php wp_nav_menu( array( 'theme_location' => 'mobile-menu', 'menu_class' => 'nav-menu' ) ); ?>
+							<?php if ( has_nav_menu( 'mobile-menu' ) ) {
+								wp_nav_menu( array( 'theme_location' => 'mobile-menu', 'menu_class' => 'menu' ) ); 
+							}else{ ?>
+								<div class="no-menu-msg"><?php _e('Please assign a menu (Go to Appearance => Menus and assign a menu to "Mobile Menu" location)', 'redwaves-lite') ?></div>
+							<?php } ?>
 						</div>
 					</nav>							
 				</div>
@@ -34,21 +38,27 @@
 						<div class="logo-wrap">
 							<?php redwaves_logo(); ?>
 						</div><!-- .logo-wrap -->
-						<!-- .header_area-wrap -->
+						<div class="header_area-wrap">
+							<?php redwaves_header_area(); ?>
+						</div><!-- .header_area-wrap -->
 					</div><!-- .header-inner -->
 				</div><!-- .container -->
 				<div id="sideviewtoggle" class="secondary-navigation">
 					<div class="container clearfix"> 
-						<a href="javascript:void(0); " id="sidemenu_show" class="sideviewtoggle">Menu</a>  
+						<a href="javascript:void(0); " id="sidemenu_show" class="sideviewtoggle"><?php _e( 'Menu', 'redwaves-lite' );?></a>  
 					</div><!--.container-->
 				</div>	
 				<div id="sticky" class="secondary-navigation">
 					<div class="container clearfix">
 						<nav id="site-navigation" class="main-navigation" role="navigation">
-							<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
+							<?php if ( has_nav_menu( 'primary' ) ) {
+								wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'menu' ) ); 
+							}else{ ?>
+								<div class="no-menu-msg"><?php _e('Please assign a menu (Go to Appearance => Menus and assign a menu to "Primary Menu" location)', 'redwaves-lite') ?></div>
+							<?php } ?>							
 						</nav><!-- #site-navigation -->
 					</div><!--.container -->
 				</div>	
 			</header><!-- #masthead -->
 			<div id="content" class="main-container">
-			<div id="page">			
+			<div id="page">

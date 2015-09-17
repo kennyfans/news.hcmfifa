@@ -1,12 +1,11 @@
 <?php
 /*-----------------------------------------------------------------------------------
 
-	Plugin Name: RedWave Recent Posts
+	Plugin Name: RedWaves Recent Posts
 	Description: A widget that displays your recent posts.
 	Version: 1.0
 
 -----------------------------------------------------------------------------------*/
-
 
 class redwaves_recent_posts_widget extends WP_Widget {
 
@@ -14,7 +13,7 @@ class redwaves_recent_posts_widget extends WP_Widget {
 		parent::__construct(
 	 		'redwaves_recent_posts_widget',
 			__('RedWaves: Recent Posts','redwaves-lite'),
-			array( 'description' => __( 'Display the most recent posts from all categories','redwaves-lite' ) )
+			array( 'description' => __( 'Display the most recent posts from all categories.','redwaves-lite' ) )
 		);
 	}
 
@@ -28,7 +27,7 @@ class redwaves_recent_posts_widget extends WP_Widget {
 		);
 		$instance = wp_parse_args((array) $instance, $defaults);
 		$title = isset( $instance[ 'title' ] ) ? $instance[ 'title' ] : __( 'Recent Posts','redwaves-lite' );
-		$qty = isset( $instance[ 'qty' ] ) ? esc_attr( $instance[ 'qty' ] ) : 5;
+		$qty = isset( $instance[ 'qty' ] ) ? intval( $instance[ 'qty' ] ) : 5;
 		$comment_num = isset( $instance[ 'comment_num' ] ) ? esc_attr( $instance[ 'comment_num' ] ) : 1;
 		$show_excerpt = isset( $instance[ 'show_excerpt' ] ) ? esc_attr( $instance[ 'show_excerpt' ] ) : 1;
 		$date = isset( $instance[ 'date' ] ) ? esc_attr( $instance[ 'date' ] ) : 1;
@@ -42,7 +41,7 @@ class redwaves_recent_posts_widget extends WP_Widget {
 		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'qty' ); ?>"><?php _e( 'Number of Posts to show','redwaves-lite' ); ?></label> 
-			<input id="<?php echo $this->get_field_id( 'qty' ); ?>" name="<?php echo $this->get_field_name( 'qty' ); ?>" type="number" min="2" max="10" step="1" value="<?php echo $qty; ?>" />
+			<input id="<?php echo $this->get_field_id( 'qty' ); ?>" name="<?php echo $this->get_field_name( 'qty' ); ?>" type="number" min="1" max="10" step="1" value="<?php echo $qty; ?>" />
 		</p>
 
 		<p>
@@ -104,6 +103,8 @@ class redwaves_recent_posts_widget extends WP_Widget {
 		$show_excerpt = $instance['show_excerpt'];
 		$excerpt_length = $instance['excerpt_length'];
 
+		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : __( 'Recent Posts','redwaves-lite' );
+		
 		echo $before_widget;
 		if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
 		echo self::get_cat_posts( $qty, $comment_num, $date, $show_thumb, $show_excerpt, $excerpt_length );
@@ -111,50 +112,52 @@ class redwaves_recent_posts_widget extends WP_Widget {
 	}
 
 	public function get_cat_posts( $qty, $comment_num, $date, $show_thumb, $show_excerpt, $excerpt_length ) {
+		
+		// Custom CSS Output
+		if ( $show_thumb == 1 ) {
+			$css = 'padding-left:90px;';
+		} else {
+			$css = 'padding-left:10px;';			
+		}
+		global $post;
 		$posts = new WP_Query(
 			"orderby=date&order=DESC&posts_per_page=". ($qty - 1)
 		);
 
-		echo '<div class="recent-posts-wrap"><ul>';
+		echo '<div class="widget-container recent-posts-wrap"><ul>';
 		
 		while ( $posts->have_posts() ) { $posts->the_post(); ?>
-			<?php echo '<li class="post-box horizontal-container">'; ?>
+			<?php echo '<li class="post-box horizontal-container" style="'. $css .'">'; ?>
 				<?php if ( $show_thumb == 1 ) : ?>
 				<div class="widget-post-img">
 					<a rel="nofollow" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-					<?php if ( has_post_thumbnail() ) {
-					the_post_thumbnail('tiny'); ?>
+						<img width="70" height="70" src="<?php echo redwaves_get_thumbnail( 'tiny' ); ?>" class="attachment-featured wp-post-image" alt="<?php the_title_attribute(); ?>">				
+						<div class="post-format"><i class="fa fa-file-text"></i></div>
 					</a>
-					<?php } else { ?>
-					<a rel="nofollow" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/nothumb-80x80.png" width="80" height="80" alt="<?php the_title_attribute(); ?>" /></a>
-					<?php } ?>
 				</div>
 				<?php endif; ?>				
 					<div class="widget-post-data">
-						<div class="widget-post-title">
-							<a rel="nofollow" href="<?php the_permalink()?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
-						</div>
+						<h4><a rel="nofollow" href="<?php the_permalink()?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h4>
 						<?php if ( $date == 1 || $comment_num == 1 ) : ?>
-						<div class="post-info widget-post-info">
-							<?php if ( $date == 1 ) : 
-							redwaves_posted();
-							endif; ?>
-							<?php if ( $comment_num == 1 ) : 
-							redwaves_entry_comments();					
-							endif; ?>                                                     
-						</div><!--.post-info-->
+							<div class="widget-post-info">
+								<?php if ( $date == 1 ) : 
+									redwaves_posted();
+								endif; ?>
+								<?php if ( $comment_num == 1 ) : 
+									redwaves_entry_comments();					
+								endif; ?>                                                     
+							</div><!--end .widget-post-info-->
 						<?php endif; ?>
 						<?php if ( $show_excerpt == 1 ) : ?>
-						<div class="widget-post-excerpt">
-							<?php echo redwaves_excerpt($excerpt_length); ?>
-						</div>
+							<div class="widget-post-excerpt">
+								<?php echo redwaves_excerpt($excerpt_length); ?>
+							</div>
 						<?php endif; ?>
 					</div>
-
 			<?php echo '</li>'; ?>
 		<?php }
+		wp_reset_postdata();
 		echo '</ul></div>'."\r\n";
 	}
-	
 }
 add_action( 'widgets_init', create_function( '', 'register_widget( "redwaves_recent_posts_widget" );' ) );

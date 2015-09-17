@@ -24,7 +24,7 @@ get_header(); ?>
 				
 				<?php if ( redwaves_categorized_blog() ) : // Only show the widget if site has multiple categories. ?>
 				<div class="widget widget_categories">
-					<h2 class="widget-title"><?php _e( 'Most Used Categories', 'redwaves-lite' ); ?></h2>
+					<h2><?php _e( 'Most Used Categories', 'redwaves-lite' ); ?></h2>
 					<ul>
 						<?php
 							wp_list_categories( array(
@@ -52,5 +52,5 @@ get_header(); ?>
 		
 	</main><!-- #main -->
 </div><!-- #primary -->
-
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

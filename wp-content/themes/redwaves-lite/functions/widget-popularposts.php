@@ -1,7 +1,7 @@
 <?php
 /*-----------------------------------------------------------------------------------
 
-	Plugin Name: RedWave Popular Posts
+	Plugin Name: RedWaves Popular Posts
 	Description: A widget that displays popular posts.
 	Version: 1.0
 
@@ -31,7 +31,7 @@ class redwaves_popular_posts_widget extends WP_Widget {
 		$qty = isset( $instance[ 'qty' ] ) ? intval( $instance[ 'qty' ] ) : 5;
 		$comment_num = isset( $instance[ 'comment_num' ] ) ? intval( $instance[ 'comment_num' ] ) : 1;
 		$date = isset( $instance[ 'date' ] ) ? intval( $instance[ 'date' ] ) : 1;
-		$days = isset( $instance[ 'days' ] ) ? intval( $instance[ 'days' ] ) : 30;
+		$days = isset( $instance[ 'days' ] ) ? intval( $instance[ 'days' ] ) : 0;
 		$show_thumb = isset( $instance[ 'show_thumb' ] ) ? intval( $instance[ 'show_thumb' ] ) : 1;
 		$show_excerpt = isset( $instance[ 'show_excerpt' ] ) ? esc_attr( $instance[ 'show_excerpt' ] ) : 1;
 		$excerpt_length = isset( $instance[ 'excerpt_length' ] ) ? intval( $instance[ 'excerpt_length' ] ) : 10;
@@ -119,8 +119,14 @@ class redwaves_popular_posts_widget extends WP_Widget {
 	}
 
 	public function get_popular_posts( $qty, $comment_num, $date, $days, $show_thumb, $show_excerpt, $excerpt_length ) {
-		
 
+		// Custom CSS Output
+		if ( $show_thumb == 1 ) {
+			$css = 'padding-left:90px;';
+		} else {
+			$css = 'padding-left:10px;';			
+		}
+		
 		global $post;
  	        $popular_days = array();
 		if ( $days ) {
@@ -140,43 +146,39 @@ class redwaves_popular_posts_widget extends WP_Widget {
        		     'numberposts' => $qty,
        		     'date_query' => $popular_days) );
 
-		echo '<div class="recent-posts-wrap"><ul>';
+		echo '<div class="widget-container recent-posts-wrap"><ul>';
 		foreach($popular as $post) :
 			setup_postdata($post);
 		?>
-			<?php echo '<li class="post-box horizontal-container">'; ?>
+			<?php echo '<li class="post-box horizontal-container" style="'. $css .'">'; ?>
 				<?php if ( $show_thumb == 1 ) : ?>
 				<div class="widget-post-img">
 					<a rel="nofollow" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-					<?php if ( has_post_thumbnail() ) {
-					the_post_thumbnail('tiny'); ?>
+						<img width="70" height="70" src="<?php echo redwaves_get_thumbnail( 'tiny' ); ?>" class="attachment-featured wp-post-image" alt="<?php the_title_attribute(); ?>">				
+						<div class="post-format"><i class="fa fa-file-text"></i></div>
 					</a>
-					<?php } else { ?>
-					<a rel="nofollow" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/nothumb-80x80.png" width="80" height="80" alt="<?php the_title_attribute(); ?>" /></a>
-					<?php } ?>
 				</div>
 				<?php endif; ?>
 					<div class="widget-post-data">
-						<div class="widget-post-title">
-							<a rel="nofollow" href="<?php the_permalink()?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
-						</div>
+						<h4><a rel="nofollow" href="<?php the_permalink()?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h4>
 						<?php if ( $date == 1 || $comment_num == 1 ) : ?>
-						<div class="post-info widget-post-info">
-							<?php if ( $date == 1 ) :
-								redwaves_posted();
-							endif; ?>
-							<?php if ( $comment_num == 1 ) :
-								redwaves_entry_comments();	
-							endif; ?>
-						</div> <!--end .post-info-->
+							<div class="widget-post-info">
+								<?php if ( $date == 1 ) :
+									redwaves_posted();
+								endif; ?>
+								<?php if ( $comment_num == 1 ) :
+									redwaves_entry_comments();	
+								endif; ?>
+							</div> <!--end .post-info-->
 						<?php endif; ?>
 						<?php if ( $show_excerpt == 1 ) : ?>
-						<div class="widget-post-excerpt">
-							<?php echo redwaves_excerpt( $excerpt_length ); ?>
-						</div>
+							<div class="widget-post-excerpt">
+								<?php echo redwaves_excerpt( $excerpt_length ); ?>
+							</div>
 						<?php endif; ?>
-				</div>
-		<?php endforeach; wp_reset_postdata();
+					</div>
+			<?php endforeach; 
+		wp_reset_postdata();
 		echo '</ul></div>'."\r\n";
 	}
 
