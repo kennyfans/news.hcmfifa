@@ -9,7 +9,14 @@
 ?>
 </div><!--#page -->
 </div><!--.main-container -->
-
+<footer id="colophon" class="site-footer" role="contentinfo">
+	<div class="footersep"></div>
+	<div class="copyrights">
+		<div class="container">
+			<?php redwaves_copyrights(); ?>
+		</div><!-- .container -->
+	</div><!-- .copyrights -->
+</footer><!-- #colophon -->
 </div><!-- #page -->
 <?php wp_footer(); ?>
 <script type="text/javascript">
