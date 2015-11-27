@@ -30,8 +30,6 @@
 		});
 	});
 </script>
-<<<<<<< HEAD
-=======
 <!-- BEGIN Analytics -->
 <script type="text/javascript">
 
@@ -49,6 +47,5 @@
     })();
 </script>
 
->>>>>>> 18ff83bfdfbec6ae4bd7675fee76cb9f3a562ed7
 </body>
 </html>
