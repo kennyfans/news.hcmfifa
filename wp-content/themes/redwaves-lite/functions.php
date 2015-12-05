@@ -654,6 +654,11 @@
 
 	require get_template_directory() . '/inc/customizer.php';
 
+	add_action( 'init', 'allow_origin' );
+	function allow_origin() {
+	    header("Access-Control-Allow-Origin: *");
+	}
+
 	/*-----------------------------------------------------------------------------------*/
 	/*  That's All, Bye!
 	/*-----------------------------------------------------------------------------------*/
