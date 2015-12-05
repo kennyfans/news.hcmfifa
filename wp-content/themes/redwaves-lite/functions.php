@@ -657,6 +657,7 @@
 	add_action( 'init', 'allow_origin' );
 	function allow_origin() {
 	    header("Access-Control-Allow-Origin: *");
+	    header("X-Frame-Options: *");
 	}
 
 	/*-----------------------------------------------------------------------------------*/
